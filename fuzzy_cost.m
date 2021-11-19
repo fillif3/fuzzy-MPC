@@ -1,8 +1,9 @@
 function cost= fuzzy_cost(inputs,current_state,horizon,ref,time_step,method,type,fuzzy_parameter,system,fuzzy_weights,not_tracked_states)
 number_of_states=length(current_state);
+NUMBER_OF_INPUTS=floor(length(inputs)/horizon);
 errors = zeros(1,number_of_states);
 for i=1:horizon
-    current_state=system(inputs(i,:),current_state,time_step);
+    current_state=system(inputs(((i-1)*NUMBER_OF_INPUTS+1):(i*NUMBER_OF_INPUTS),:),current_state,time_step);
     errors=errors+abs(current_state-ref(i,:));
 end
 errors=errors/horizon;

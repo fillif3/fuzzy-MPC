@@ -3,6 +3,7 @@ function draw_state_wtih_ref(state,ref,not_tracked_states,names,type,fuzzy_param
 %   Detailed explanation goes here
 for i=wrev(sort(not_tracked_states))
     state(:,i)=[];
+    ref(:,i)=[];
 end
 size_states=size(state);
 figure
