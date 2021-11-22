@@ -2,7 +2,7 @@
 
 % 1-> 1_D linear
 % 2-> mobile robot with direction
-the_case=1;
+the_case=2;
 
 % Main parameters
 
@@ -25,7 +25,7 @@ if the_case==1
     ref_full=[sin(x);cos(x)];
     % MPC parameters
 
-    horizon=10;
+    horizon=30;
     fuzzy_combaining_membership_method='min';
     fuzzy_membership_type={'tringular','tringular'};
     fuzzy_parameter=[1,1];
@@ -64,7 +64,6 @@ input=[0,1;0,0];
 state_history=zeros(NUMBER_OF_ITERATIONS,length(state));
 
 % simulation
-
 for i=1:NUMBER_OF_ITERATIONS
     horizon=min(horizon,NUMBER_OF_ITERATIONS-i+1);
     ref=ref_full(:,i:(i+horizon));
@@ -72,7 +71,6 @@ for i=1:NUMBER_OF_ITERATIONS
     val=fuzzy_MPC(discretization_time,system_model,NUMBER_OF_INPUTS,...
         horizon,transpose(ref),state,fuzzy_combaining_membership_method,fuzzy_membership_type,fuzzy_parameter,...
         fuzzy_weights,not_controlled_states,[],[],[],[],-ones(NUMBER_OF_INPUTS*horizon,1),ones(NUMBER_OF_INPUTS*horizon,1));
-
     input(:,2:(NUMBER_OF_INPUTS+1))=[val';val'];
     output=sim(system_simulink_name);
     dummy_state=state;
