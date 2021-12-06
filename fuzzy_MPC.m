@@ -1,11 +1,11 @@
 function out = fuzzy_MPC(time_step,model,number_of_inputs,horizon,ref,current_state,type_of_merging_membership,...
-    type_of_membership_function,fuzzy_parameter,fuzzy_weights,not_tracked_states,A,b,Aeq,beq,lu,ub)
+    type_of_membership_function,fuzzy_parameter,fuzzy_weights,not_tracked_states,weights_types,p,A,b,Aeq,beq,lu,ub)
 %UNTITLED3 Summary of this function goes here
 %   Detailed explanation goes here
 
 
 cost_function = @(x)fuzzy_cost(x,current_state,horizon,ref,time_step,type_of_merging_membership,type_of_membership_function,...
-    fuzzy_parameter,model,fuzzy_weights,not_tracked_states);
+    fuzzy_parameter,model,fuzzy_weights,not_tracked_states,weights_types,p);
 
 options = optimoptions('fmincon','Display','off');
 
